@@ -70,9 +70,10 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 </plugin>
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6b111969-c0ca-423a-b847-205aac021c40/Untitled.png)
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/2.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/efa23fed-6f4c-4ea2-bfd9-0eb144183cc1/Untitled.png)
+
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/3.png)
 
 - **Instructions (指令)**：代码中的所有可执行指令的覆盖率。这包括方法调用、条件分支、循环等。
 - **Instruction Coverage (指令覆盖率)**：指令覆盖率是指**已经执行的指令占总指令数的比例。**
@@ -104,9 +105,9 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 ## 1.2 单元测试、集成测试、系统级别测试
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/75978c7c-066c-4d54-b2ba-843ad14a1ace/Untitled.png)
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/4.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e24fa114-a121-404a-8b26-1944b8d2d7e1/Untitled.png)
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/5.png)
 
 测试应该是为了你最担心的地方去测试，而不是为了测试而测试。
 
@@ -122,13 +123,15 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 ## 时间成本指标
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a0254b57-f97e-48dc-8a3a-ab0fdba2c80f/Untitled.png)
+
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/6.png)
 
 微软的统计数据：bug在单元测试阶段被发现，平均耗时3.25小时，如果漏到系统测试阶段，要花费11.5小时。
 
 **测试中出现bug的阶段**
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c84c3e8e-84f1-4d4f-859b-a894a68a4994/Untitled.png)
+
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/7.png)
 
 85%的缺陷都在代码设计阶段产生，而发现bug的阶段越靠后，耗费成本就越高，指数级别的增高。所以，在早期的单元测试就能发现bug，省时省力，一劳永逸，何乐而不为呢
 
@@ -139,7 +142,8 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 找了开发能力相近的两个团队，同时开发相近的需求。进行单测的团队在编码阶段时长增长了一倍，从7天到14天，但是，这个团队在集成测试阶段的表现非常顺畅，bug量小，定位bug迅速等。最终的效果，整体交付时间和缺陷数，均是单测团队最少。
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e7b3fad1-456e-4654-b1a8-b40dd9de9b18/Untitled.png)
+
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/8.png)
 
 ⇒不进行单测，交付时间长，产出的代码缺陷更多，修复缺陷花费的时间和成本指数上升
 
@@ -166,9 +170,8 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 # 03 如何做好单元测试
 
-x
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/487da34f-3521-48b2-a3fa-2d8472b8df7e/Untitled.png)
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/9.png)
 
 ## 四步骤
 
