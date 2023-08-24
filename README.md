@@ -1,11 +1,10 @@
 ## 1 maven集成
 
 > 默认情况下，maven找不到junit5的单元测试用例
-> 
 
 执行 mvn clean test 发现
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/1.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/1.png)
 
 ### 步骤一：配置maven去找到单元测试
 
@@ -70,10 +69,9 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 </plugin>
 ```
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/2.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/2.png)
 
-
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/3.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/3.png)
 
 - **Instructions (指令)**：代码中的所有可执行指令的覆盖率。这包括方法调用、条件分支、循环等。
 - **Instruction Coverage (指令覆盖率)**：指令覆盖率是指**已经执行的指令占总指令数的比例。**
@@ -105,9 +103,9 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 ## 1.2 单元测试、集成测试、系统级别测试
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/4.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/4.png)
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/5.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/5.png)
 
 测试应该是为了你最担心的地方去测试，而不是为了测试而测试。
 
@@ -123,25 +121,21 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 ## 时间成本指标
 
-
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/6.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/6.png)
 
 微软的统计数据：bug在单元测试阶段被发现，平均耗时3.25小时，如果漏到系统测试阶段，要花费11.5小时。
 
 **测试中出现bug的阶段**
 
-
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/7.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/7.png)
 
 85%的缺陷都在代码设计阶段产生，而发现bug的阶段越靠后，耗费成本就越高，指数级别的增高。所以，在早期的单元测试就能发现bug，省时省力，一劳永逸，何乐而不为呢
 
 ## 具体案例
 
 > 来源单元测试的艺术
-> 
 
 找了开发能力相近的两个团队，同时开发相近的需求。进行单测的团队在编码阶段时长增长了一倍，从7天到14天，但是，这个团队在集成测试阶段的表现非常顺畅，bug量小，定位bug迅速等。最终的效果，整体交付时间和缺陷数，均是单测团队最少。
-
 
 ![图片](https://github.com/Levio-z/MyPicture/blob/img/img/8.png)
 
@@ -152,24 +146,23 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 ### 对团队的价值
 
 - 缩短反馈周期：降低了修复缺陷的成本，为企业为团队降低了成本，提高了产出
-    - 单元测试是所有测试中最底层的一类测试，是第一个环节，也是最重要的一个环节，是唯一一次有保证能够代码覆盖率达到100%的测试，是整个软件测试过程的基础和前提，单元测试防止了开发的后期因bug过多而失控，单元测试的**性价比**是最好的。
+  - 单元测试是所有测试中最底层的一类测试，是第一个环节，也是最重要的一个环节，是唯一一次有保证能够代码覆盖率达到100%的测试，是整个软件测试过程的基础和前提，单元测试防止了开发的后期因bug过多而失控，单元测试的**性价比**是最好的。
 - 保证质量情况下提高交付速度
 
 ### 对个人的价值
 
 - 驱动设计：明确代码功能模块职责，帮助系统的设计灵活、松耦合
 - 活文档：可执行且永远最新的文档
-    - 测试方法名可以看出我们的意图
+  - 测试方法名可以看出我们的意图
 - 安全重构：后续重构更安全更可靠
-    - 持续进行单元测试来发现代码有没有被破坏
+  - 持续进行单元测试来发现代码有没有被破坏
 - 易于调试：帮助开发者快速定位bug，
-    - **线上发现问题，快速调试**
+  - **线上发现问题，快速调试**
 - 提升信心：能够在开发中提供快速反馈
 - 放心重构
 - 代码规范、优化，可测试性的代码，便于后期维护和扩展
 
 # 03 如何做好单元测试
-
 
 ![图片](https://github.com/Levio-z/MyPicture/blob/img/img/9.png)
 
@@ -187,7 +180,7 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 ②模拟依赖对象（参数或返回值）
 
-④模拟依赖方法 
+④模拟依赖方法
 
 ### 步骤三：调用方法阶段
 
@@ -210,7 +203,6 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 ### ①定义被测对象
 
 > 编写测试用例前，需要首先初始化被测对象，直接初始化或通过Spy等实例化
-> 
 
 ```java
 // 1.直接构建对象
@@ -240,19 +232,16 @@ UserServiceImpl userServiceImpl;
 对于被@Spy修饰的成员变量调用时，**默认是进行真实调用**
 
 > 注意事项：
-> 
-> 
+>
 > 对于 Spy 对象，应该使用 `doReturn()` 等方法进行存根，而不是 `when()` 方法。
-> 
+>
 > ```java
 > Mockito.doReturn("some value").when(spyObject).getSomeMethod();
 > ```
-> 
 
 ### ②模拟依赖对象
 
 > 编写测试用例时，模拟各种依赖对象，类成员，模拟方法出参和入参，测试方法入参
-> 
 
 ```java
 
@@ -520,7 +509,7 @@ private ArgumentCaptor<User> userArgumentCaptor;
 
 ```java
 //①验证对象空值
-        
+      
 //1. 验证对象为空
 Assertions.assertNull(user, "用户不能为空");
 
@@ -528,7 +517,7 @@ Assertions.assertNull(user, "用户不能为空");
 Assertions.assertNotNull(user, "用户不能为空");
 
 //②验证数据对象布尔值
-        
+      
 //1. 验证数据对象为假
 Assertions.assertFalse(b, "返回值必须为假");
 
@@ -536,7 +525,7 @@ Assertions.assertFalse(b, "返回值必须为假");
 Assertions.assertTrue(b, "返回值必须为真");
 
 //③验证对象引用
-        
+      
 //1. 验证数据对象一致
 Assertions.assertSame(user,user2, "用户必须一致");
 
@@ -544,7 +533,7 @@ Assertions.assertSame(user,user2, "用户必须一致");
 Assertions.assertNotSame(user,user2, "用户必须不一致");
 
 //④验证数据对象值
-        
+      
 //1. 验证简单数据对象
 Assertions.assertNotEquals(user,user2, "用户必须不相等");
 Assertions.assertEquals(user,user2, "用户必须相等");
