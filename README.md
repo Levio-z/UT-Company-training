@@ -5,6 +5,7 @@
 
 执行 mvn clean test 发现
 ![Untitled](https://pic.imgdb.cn/item/64e6f2a6661c6c8e548fce1e.png)
+https://pic.imgdb.cn/item/64e6f2a6661c6c8e548fce1e.png
 
 ### 步骤一：配置maven去找到单元测试
 
