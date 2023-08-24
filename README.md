@@ -5,7 +5,7 @@
 
 执行 mvn clean test 发现
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/Untitled.png)
+![图片](https://github.com/Levio-z/MyPicture/blob/img/img/1.png)
 
 ### 步骤一：配置maven去找到单元测试
 
