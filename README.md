@@ -137,7 +137,7 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 找了开发能力相近的两个团队，同时开发相近的需求。进行单测的团队在编码阶段时长增长了一倍，从7天到14天，但是，这个团队在集成测试阶段的表现非常顺畅，bug量小，定位bug迅速等。最终的效果，整体交付时间和缺陷数，均是单测团队最少。
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/8.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/8.png)
 
 ⇒不进行单测，交付时间长，产出的代码缺陷更多，修复缺陷花费的时间和成本指数上升
 
@@ -164,7 +164,7 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 # 03 如何做好单元测试
 
-![图片](https://github.com/Levio-z/MyPicture/blob/img/img/9.png)
+![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/9.png)
 
 ## 四步骤
 
