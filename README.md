@@ -650,3 +650,6 @@ userService.batchCreate(userCreateList);
 1. 如果是测试类下所有测试用例共用的资源文件，建议存储在测试类资源目录下，比如：testUserService；
 2. 如果是测试用例独有的资源文件，建议存储在测试方法资源目录下，比如：testUserService/testBatchCreateWithSuccess；
 3. 如果是某一被测方法所有的测试用例共用的资源文件，建议存储在不带任何修饰的测试方法资源目录下，比如：testUserService/testBatchCreate
+   ![image-20230824153204168](https://fastly.jsdelivr.net/gh/Levio-z/MyPicture/img/image-20230824153204168.png)
+
+![image-20230824153256296](https://fastly.jsdelivr.net/gh/Levio-z/MyPicture/img/image-20230824153256296.png)
