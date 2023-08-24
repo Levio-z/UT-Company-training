@@ -5,11 +5,17 @@ import com.lion.utcompanytraining.entity.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserMapper {
     List<User> selectAll();
 
-    User getOne();
+    User getUserByCode(String userCode);
+
+    User getUserByCode(String userCode,String name);
 
     String save(User appUser);
+
+    String delete(User...user);
+
+    String handlerList(List<User> users);
 
 }
