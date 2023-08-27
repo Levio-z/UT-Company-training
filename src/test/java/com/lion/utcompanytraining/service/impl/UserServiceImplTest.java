@@ -75,8 +75,8 @@ class UserServiceImplTest {
     private  User buildUser1() {
         String path = RESOURCE_PATH;
         String text = ResourceHelper.getResourceAsString(getClass(), path + "User1.json");
-        User buildUser = JSON.parseObject(text, User.class);
-        return buildUser;
+        User buildUser1 = JSON.parseObject(text, User.class);
+        return buildUser1;
     }
 
 
