@@ -666,6 +666,7 @@ userService.batchCreate(userCreateList);
 1. 如果是测试类下所有测试用例共用的资源文件，建议存储在测试类资源目录下，比如：testUserService；
 2. 如果是测试用例独有的资源文件，建议存储在测试方法资源目录下，比如：testUserService/testBatchCreateWithSuccess；
 3. 如果是某一被测方法所有的测试用例共用的资源文件，建议存储在不带任何修饰的测试方法资源目录下，比如：testUserService/testBatchCreate
+   参考链接：https://www.zhihu.com/search?type=content&q=%E8%80%8C%E6%88%91%E5%BF%AB%E9%80%9F%E7%BC%96%E5%86%99Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%9A%84%E6%8A%80%E5%B7%A7%E5%B0%B1%E6%98%AF%E2%80%94%E2%80%94JSON%E5%BA%8F%E5%88%97%E5%8C%96%E3%80%82
 
 资源辅助工具类
 
