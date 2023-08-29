@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
+ * 案例：FizzBuzz
  */
 public class FizzBuzzUtilTest {
     //被3整除，打印Fizz

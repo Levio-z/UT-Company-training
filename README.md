@@ -666,3 +666,235 @@ userService.batchCreate(userCreateList);
 1. 如果是测试类下所有测试用例共用的资源文件，建议存储在测试类资源目录下，比如：testUserService；
 2. 如果是测试用例独有的资源文件，建议存储在测试方法资源目录下，比如：testUserService/testBatchCreateWithSuccess；
 3. 如果是某一被测方法所有的测试用例共用的资源文件，建议存储在不带任何修饰的测试方法资源目录下，比如：testUserService/testBatchCreate
+
+资源辅助工具类
+
+```java
+package com.lion.utcompanytraining.util;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 资源辅助类
+ */
+public final class ResourceHelper {
+
+    /**
+     * 构造方法
+     */
+    private ResourceHelper() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * 以字符串方式获取资源
+     *
+     * @param clazz 类
+     * @param name 资源名称
+     * @return 字符串
+     */
+    public static <T> String getResourceAsString(Class<T> clazz, String name) {
+        try (InputStream is = clazz.getResourceAsStream(name)) {
+            return IOUtils.toString(is, StandardCharsets.UTF_8);
+        } catch (IOException  e) {
+            throw new RuntimeException(String.format("以字符串方式获取资源(%s)异常", name), e);
+        }
+    }
+
+    /**
+     * 以字符串方式获取对象
+     *
+     * @param clazz 类
+     * @param name 资源名称
+     * @return 字符串
+     */
+    public static <T,Z> Z getResourceAsObject(Class<T> clazz, String name,Class<Z> clazz1) {
+        String string = getResourceAsString(clazz, name);
+        return JSON.parseObject(string, clazz1);
+    }
+
+    /**
+     * 反序列化List对象
+     *
+     * @param clazz 类
+     * @param name 资源名称
+     * @return 字符串
+     */
+    public static <T,Z> List<Z> getResourceAsList(Class<T> clazz, String name, Class<Z> clazz1) {
+        String string = getResourceAsString(clazz, name);
+        return JSON.parseArray(string, clazz1);
+    }
+
+    /**
+     * 反序列化映射对象
+     *
+     * @param clazz 类
+     * @param name 资源名称
+     * @return 字符串
+     */
+    public static <T,K,Y> Map<K,Y> getResourceAsMap(Class<T> clazz, String name, Class<K> clazz1, Class<Y> clazz2) {
+        String string = getResourceAsString(clazz, name);
+        return JSON.parseObject(string, new TypeReference<Map<K, Y>>() {});
+    }
+}
+```
+
+# 测试驱动开发
+
+![Untitled](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/202308291626321.png)
+
+- 列清楚了要开发和测试的任务清单
+- 识别清楚边缘情况
+- 以最小增量开发代码
+- 通过测试可以增加开发的信心
+- 给了你重构的自由，测试是你的安全网
+
+
+
+## 3.1 实践
+
+### 3.1.1 编写一段示例代码
+
+打印1-100
+
+被3整除，打印Fizz
+
+被5整除，打印Buzz
+
+被3整除也被5整除，打印FizzBuzz
+
+都不满足，打印原来的数字
+
+### ①先写一个失败的测试
+
+```jsx
+@Test
+    @DisplayName("FizzBuzz")
+    void testFizzBuzz(){
+        String expected ="Fizz";
+        assertEquals(expected,FizzBuzzUtil.compulete(3),"Should return Fizz");
+    }
+```
+
+写好方法名，甚至可以右键在方法内创建方法
+
+### ②完成方法的一部分，使他满足Fizz
+
+```jsx
+//被3整除，打印Fizz
+    @Test
+    @Order(1)
+    @DisplayName("Divisible By Three")
+    void testForDivisibleByThree(){
+        String expected ="Fizz";
+        assertEquals(expected,FizzBuzzUtil.compute(3),"Should return Fizz");
+    }
+```
+
+### ③pass，编写下一个测试，直到所有分支都满足，代码逻辑都实现
+
+```jsx
+package com.lion.ut.utils;
+
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class FizzBuzzUtilTest {
+    /**
+     * 打印1-100
+     *
+     * 被3整除，打印Fizz
+     *
+     * 被5整除，打印Buzz
+     *
+     * 被3整除也被5整除，打印FizzBuzz
+     *
+     * 都不满足，打印原来的数字
+     */
+    //被3整除，打印Fizz
+    @Test
+    @Order(1)
+    @DisplayName("Divisible By Three")
+    void testForDivisibleByThree(){
+        String expected ="Fizz";
+        assertEquals(expected,FizzBuzzUtil.compute(3),"Should return Fizz");
+    }
+    //被5整除，打印Buzz
+    @Test
+    @Order(2)
+    @DisplayName("Divisible By Five")
+    void testForDivisibleByFive(){
+        String expected ="Buzz";
+        assertEquals(expected,FizzBuzzUtil.compute(5),"Should return Buzz");
+    }
+
+    //被3和5整除，打印Buzz
+    @Test
+    @Order(3)
+    @DisplayName("Divisible By Three And Five")
+    void testForDivisibleByThreeAndFive(){
+        String expected ="FizzBuzz";
+        assertEquals(expected,FizzBuzzUtil.compute(15),"Should return FizzBuzz");
+    }
+
+    //都不满足，打印原来的数字
+    @Test
+    @Order(4)
+    @DisplayName("Divisible By Three And Five")
+    void testElse(){
+        String expected ="1";
+        assertEquals(expected,FizzBuzzUtil.compute(1),"Should return source");
+    }
+}
+```
+
+方法：
+
+```java
+public static String compute(Integer a){
+    boolean b = a % 3 == 0;
+    boolean b1 = a % 5 == 0;
+    if (b&&b1){
+        return "FizzBuzz";
+    }else if (b) {
+        return "Fizz";
+    } else if (b1) {
+        return "Buzz";
+    } else {
+        return Integer.toString(a);
+    }
+}
+```
+
+### ④重构，运行所有测试
+
+```java
+public static String compute(Integer i){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if ( i % 3 == 0){
+            stringBuilder.append("Fizz");
+        }
+
+        if ( i % 5 == 0){
+            stringBuilder.append("Buzz");
+        }
+
+        if ("".equals(stringBuilder.toString())){
+            stringBuilder.append(i);
+        }
+
+        return stringBuilder.toString();
+    }
+```

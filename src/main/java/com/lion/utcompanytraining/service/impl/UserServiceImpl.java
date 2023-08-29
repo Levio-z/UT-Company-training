@@ -4,7 +4,6 @@ import com.lion.utcompanytraining.entity.User;
 import com.lion.utcompanytraining.mapper.UserMapper;
 import com.lion.utcompanytraining.service.SyncService;
 import com.lion.utcompanytraining.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
