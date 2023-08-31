@@ -188,6 +188,62 @@ Jacoco 含义：java code coverge 含义java代码覆盖率
 
 - 可测试性的代码，便于后期维护和扩展。
 
+### 关于为什么要写单测各种维度的讨论和理解
+
+- **让人在修改代码之后能感到安心，踏实**：工作了一些年头，我觉得单元测试起到的最重要作用其实是：（单元测试跑过之后能比用飘柔更自信）。只要跑一把单元测试，就能自动化验证程序逻辑的正确性，而无需在提交代码之前提心吊胆、担心会漏掉什么情况没有处理或者自己新加入的逻辑制造了bug。
+- **面向重构**：[单元测试](https://www.zhihu.com/search?q=单元测试&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A120164282})，或者更大一些的[自动化测试](https://www.zhihu.com/search?q=自动化测试&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A120164282})，对提高软件质量是有很大帮助的。通过一系列预先设计的规则，就可以覆盖大量的测试点。尤其是对重构一类的任务，确保修改前后系统行为不变很重要，而修改后的[回归测试](https://www.zhihu.com/search?q=回归测试&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A120164282})工作量又极其繁重，此时单元测试，或者自动化测试就能体现出无以伦比的效率。
+- **核心理解**：**验证“自己写的一小段代码是不是符合设计逻辑的“。而不是调用的其他函数。**
+- **成本**：有效的开发阶段测试会占用掉开发者30%左右的精力
+- **学习难度**：**特别强调下，搭建有效的自动化测试的工作量并不小**。但实际上为了让TestCase发挥作用，让测试容易运行，可以隔离，可重复，稳定的跑，需要学习和实施的东西非常多，甚至不亚于功能开发本身。对测试工作量的低估最终会导致让这个工作不了了之，变成面子工程。如果你是一个技术lead，想带领团队写测试，但以为“就是很小的工作量，随便写一下就会有效果”，那么必然会吃瘪。
+
+## Mocktio 框架简介
+
+### Mocktio概述
+
+**什么是Mockito？**
+
+Mockito是一个**功能强大**的Java测试框架，通过Mockito可以**创建Mock对象**，**排除外部依赖**对被测试类的干扰。通俗地讲就是我们在对某个类测试时，涉及到一些RPC调用，数据库，缓存的操作等，都可以将对应的依赖Mock掉（模拟），让其返回我们自己造的结果。
+
+官网：https://site.mockito.org/
+
+**为什么要用Mockit？**
+
+Mockito能让代码对**外部系统隔离**，不需要进行各种初始化操作。仅仅从**单机的角度**看逻辑是否跑通。
+
+**什么是Mock对象？**
+
+维基百科对模拟对象的解释：
+
+> 在面向对象程序设计中，模拟对象（英语：mock object，也译作**模仿对象**）是以可控的方式模拟真实对象行为的假的对象。**汽车设计者使用碰撞测试假人来模拟车辆碰撞中人的动态行为**
+
+简单来说，就是用于模拟实际的对象（这些对象可能是对外部系统的依赖），从而**校验被测试类的方法调用是否符合预期。**
+
+**什么是打桩？**
+
+打桩也叫stub，存根。就是把所需的
+
+**测试数据塞进对象**
+
+中，关注点在于入参和出参。在Mockito 中使用 when(…).thenReturn(…) 描述了对象以某个入参调用某个方法时，返回thenReturn中指定的出参。这个过程就叫
+
+**Stub打桩**
+
+。只要这个方法被 stub了，每次调用，就会一直返回这个stub的值。
+
+Mockito的**使用过程**很简单：
+
+1. 将被测试接口相关的外部依赖对象转换为Mock对象，然后打桩。
+2. 执行测试接口代码。
+3. 校验返回的关键结果是否正确
+
+下文就详细解释这三个步骤。
+
+**mocktio的原理**
+
+在mock方法中，mockito会利用**ByteBuddy框架生成对应的字节码文件**，然后利用**classLoader加载**。其实这个过程就是**动态代理生成的过程**，只不过这一步你也可以用cglib实现。
+
+对其某个方法的调用都会触发handler，比如`Mockito.when(orderService.getOrder(1L)`时，可以理解成维护一个Map，key就是invocation对象，里面记录了方法名，入参等。总之可以用它进行反射调用。value则为`thenReturn(order`中的对象。
+
 # 03 如何做好单元测试
 
 ![图片](https://raw.githubusercontent.com/Levio-z/MyPicture/img/img/9.png)
@@ -909,3 +965,86 @@ public static String compute(Integer i){
         return stringBuilder.toString();
     }
 ```
+
+# 具体使用SOP以及查询
+
+
+
+## 特殊使用case
+
+1. 使用了Mybatis-plus
+
+   ```java
+   TableInfoHelper.initTableInfo(new MapperBuilderAssistant(new MybatisConfiguration(), ""), SysConfig.class);
+   ```
+
+2. mock@value注解的变量
+
+   ```java
+   @Mock
+   private Environment environment;
+   when(environment.getProperty("offline.uploadDataHbaseTableName")).thenReturn("1,2");
+   ```
+
+3. mock静态方法
+
+   ```java
+   MockedStatic mockedStatic = mockStatic(HttpUtil.class);
+   HttpRequest httpRequest = mock(HttpRequest.class);
+   HttpResponse httpResponse = mock(HttpResponse.class);
+   when(HttpUtil.createPost(anyString())).thenReturn(httpRequest);
+   when(httpRequest.execute()).thenReturn(httpResponse);
+   mockedStatic.close();
+   ```
+
+3. @Spy
+
+   ```java
+   //使用一下语法存根：
+   doReturn("some value").when(spyObject).getSomeMethod();
+   ```
+
+4. 模拟私有变量
+
+   ```java
+   ReflectionTestUtils.setField(realnameDealerServiceImpl, "baseMapper", realnameDealerMapper);
+   ```
+
+5. 单元测试类中有ThreadLocal
+
+6. 模拟对象存根却没有成功
+
+   ```java
+   所以mock的时候，mock的变量名也应该为remoteRestTemplate，将测试类中的restTemplate修改为remoteRestTemplate修复。
+   ```
+
+7. mock一个假对象及对象的方法(不需要全部使用对象的方法时)
+
+   ```java
+   // 创建一个返回类型为ResponseEntity的假对象
+   ResponseEntity<String> mockResponse = Mockito.mock(ResponseEntity.class);
+   // 设置假对象的返回值
+   Mockito.when(mockResponse.getBody()).thenReturn("Hello, world!");
+   ```
+
+8.  SpringBoot模拟代理
+
+   ```java
+   mockStatic(AopContext.class);
+   when(AopContext.currentProxy()).thenReturn(sysRoleServiceImpl);
+   ```
+
+9. mock上下文
+
+   ```java
+   //mock模拟上下文
+   User applicationUser =mock(User.class);
+   Authentication authentication =mock(Authentication.class);
+   SecurityContext securityContext =mock(SecurityContext.class);
+   when(securityContext.getAuthentication()).thenReturn(authentication);
+   SecurityContextHolder.setContext(securityContext);
+   when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
+   when(applicationUser.getUsername()).thenReturn("applicationUser");
+   ```
+
+   

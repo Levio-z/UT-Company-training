@@ -45,4 +45,19 @@ public class FizzBuzzUtil {
 //            return Integer.toString(a);
 //        }
 //    }
+
+//    public static String compute(Integer a) {
+//        boolean b1 = a % 3 == 0;
+//        boolean b2 = a % 5 == 0;
+//        if (b1&&b2){
+//            return "FizzBuzz";
+//        }
+//        else if (b1) {
+//            return "Fizz";
+//        } else if (b2) {
+//            return "Buzz";
+//        }else {
+//            return Integer.toString(a);
+//        }
+//    }
 }
