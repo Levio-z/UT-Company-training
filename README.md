@@ -1038,13 +1038,53 @@ public static String compute(Integer i){
 
    ```java
    //mock模拟上下文
-   User applicationUser =mock(User.class);
+   
+   
    Authentication authentication =mock(Authentication.class);
    SecurityContext securityContext =mock(SecurityContext.class);
-   when(securityContext.getAuthentication()).thenReturn(authentication);
    SecurityContextHolder.setContext(securityContext);
-   when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
+   User applicationUser =mock(User.class);
+   
+   when(securityContext.getAuthentication()).thenReturn(authentication);
+   when(authentication.getPrincipal()).thenReturn(applicationUser);
+   
    when(applicationUser.getUsername()).thenReturn("applicationUser");
    ```
-
    
+   
+
+11. 对于链式调用
+
+    ```java
+        @Mock(answer = Answers.RETURNS_SELF)
+        UserLoanDetail.UserLoanDetailBuilder userLoanDetailBuilder;
+    
+    
+    UserLoanDetail userLoanDetail = mock(UserLoanDetail.class);
+    Mockito.when(UserLoanDetail.builder()).thenReturn(userLoanDetailBuilder);
+     when(userLoanDetailBuilder.build()).thenReturn(userLoanDetail);
+    doReturn(true).when(userLoanDetail).insert();
+    ```
+
+12. SOP
+
+    ```java
+    @BeforeEach
+        void setUp() {
+            // 1.mybaitsPlusb
+            TableInfoHelper.initTableInfo(new MapperBuilderAssistant(new MybatisConfiguration(), ""), UserLoanDetail.class);
+            MockitoAnnotations.openMocks(this);
+            // 2.解决代码里直接this.baseMapper
+            ReflectionTestUtils.setField(userLoanDetailServiceImpl, "baseMapper", baseMapper);
+            // 3.mock模拟上下文
+            LionUser applicationUser = mock(LionUser.class);
+            Authentication authentication = mock(Authentication.class);
+            SecurityContext securityContext = mock(SecurityContext.class);
+            when(securityContext.getAuthentication()).thenReturn(authentication);
+            SecurityContextHolder.setContext(securityContext);
+            when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
+            when(applicationUser.getUsername()).thenReturn("applicationUser");
+        }
+    ```
+
+    
